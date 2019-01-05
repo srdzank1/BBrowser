@@ -1,0 +1,40 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/image/app_icon.png</file>
+        <file>res/image/bottom.png</file>
+        <file>res/image/top.png</file>
+        <file>res/html/proc1.html</file>
+        <file>res/image/if_Close_1891023.png</file>
+        <file>res/image/if_Estate_home_house_building_property_real_1886940.png</file>
+        <file>res/image/if_f-bottom_256_282477.png</file>
+        <file>res/image/if_f-left_256_282467.png</file>
+        <file>res/image/if_f-right_256_282463.png</file>
+        <file>res/image/if_f-top_256_282460.png</file>
+        <file>res/html/proc2.html</file>
+        <file>res/image/admin_click.png</file>
+        <file>res/image/admin_hover.png</file>
+        <file>res/image/admin_normal.png</file>
+        <file>res/image/close_click.png</file>
+        <file>res/image/close_hover.png</file>
+        <file>res/image/close_normal.png</file>
+        <file>res/image/home_click.png</file>
+        <file>res/image/home_hover.png</file>
+        <file>res/image/home_normal.png</file>
+        <file>res/image/next_click.png</file>
+        <file>res/image/next_hover.png</file>
+        <file>res/image/next_normal.png</file>
+        <file>res/image/previous_click.png</file>
+        <file>res/image/previous_hover.png</file>
+        <file>res/image/previous_normal.png</file>
+        <file>res/image/arrowdown_click.png</file>
+        <file>res/image/arrowdown_hover.png</file>
+        <file>res/image/arrowdown_normal.png</file>
+        <file>res/image/arrowup_click.png</file>
+        <file>res/image/arrowup_hover.png</file>
+        <file>res/image/arrowup_normal.png</file>
+        <file>res/image/off-sliders.png</file>
+        <file>res/image/on-sliders.png</file>
+        <file>res/image/if_minus_1645995.png</file>
+        <file>res/image/if_plus_1646001.png</file>
+    </qresource>
+</RCC>

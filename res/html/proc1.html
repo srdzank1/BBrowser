@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style type="text/css">
+
+            @-webkit-keyframes fadein { /* Safari and Chrome */
+                from {
+                    opacity:0;
+                }
+                to {
+                    opacity:1;
+                }
+            }
+
+
+            #ytplayer {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                animation: fadein 12s;
+                -moz-animation: fadein 12s; /* Firefox */
+                -webkit-animation: fadein 12s; /* Safari and Chrome */
+                -o-animation: fadein 12s; /* Opera */
+}
+            * { box-sizing: border-box; }
+            .video-background {
+              background: #000;
+              position: fixed;
+              top: 0; right: 0; bottom: 0; left: 0;
+              z-index: -99;
+            }
+            .video-foreground,
+            .video-background iframe {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              pointer-events: auto;
+              background-image: url("%bkgimage%");
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+              transition: opacity 0.3s;
+            }
+
+            @media (min-width: 1921px) {
+                .video-foreground { height: 300%; top: -100%; }
+            }
+
+            @media (min-width: 1920px) and (max-width: 601px) {
+                .video-foreground { width: 100%; left: 0%; }
+            }
+            @media all and (max-width: 600px) {
+            .vid-info { width: 50%; padding: .5rem; }
+            .vid-info h1 { margin-bottom: .2rem; }
+            }
+            @media all and (max-width: 500px) {
+            .vid-info .acronym { display: none; }
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <div class="video-background">
+            <div class="video-foreground">
+               <iframe
+                    id="ytplayer"
+                    allowfullscreen
+                    src="%url%?background=1&muted=%muted%&quality=1080p&autoplay=1&controls=0&showinfo=0&autohide=1&loop=1"
+                    frameborder="0"
+                    webkitallowfullscreen="true"
+                    mozallowfullscreen="true"
+                    allowfullscreen="true" >
+                </iframe>
+            </div>
+          </div>
+    </body>
+</html>
+
+
+
+
