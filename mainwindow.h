@@ -78,7 +78,7 @@ public:
     void ReadFilteredDataCategory();
     void SaveFilteredDataSchedule();
     void ReadFilteredDataSchedule();
-    void ZackClock();
+//    void ZackClock();
     void InitPassUserProc();
     void ProcRegistrationDialog();
     void ProcValidateCodeDialog();
@@ -96,12 +96,12 @@ private:
     QHorizontalMenu *horizontalMenu;
     CMenuForm *centralMenu;
     QWebEngineView *view;
-    QWebEngineView *viewInit;
+//    QWebEngineView *viewInit;
     QTimer *autoTimer;
     bool statSleep;
     bool statSleepPrevious;
     void createView();
-    void createViewInit();
+
     void CreateAdminWidget();
     void CreateHeaderImageInfoCategory(tgroup &xmlData);
     void CreateCloseOffWidget();
@@ -194,11 +194,7 @@ public slots:
     void ProcClickForUrl(QString &i, QString&t, QImage& image );
     void fullScreenRequested(QWebEngineFullScreenRequest request);
     void procLoadUrlFinished(bool s);
-    void procStartedUrlFinished();
     void procLoadProgress(int);
-    void TimerFinish();
-    void TimerFinish2();
-    void TimerFinish5();
     void ProcUpClick();
     void ProcDownClick();
     void ProcHomeClick();
@@ -218,7 +214,7 @@ public slots:
     void procCloseWebSites();
     void UpdateXMLFromWeb();
     void procupdateHorizMenu();
-    void updateTimer();
+//    void updateTimer();
     void ProcChangeEnableRestriction();
     void ProcChangeEnableSchedule();
     void ProcPasswordDialog();

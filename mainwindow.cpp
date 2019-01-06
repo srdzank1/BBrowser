@@ -11,62 +11,7 @@ inline void delay(int millisecondsWait)
     loop.exec();
 }
 
-void MainWindow::ZackClock(){
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
-    timer->start(1000);
-}
 
-void MainWindow::updateTimer(){
-
-    if (mSettings.enableSchedule == true){
-
-        QDateTime current = QDateTime::currentDateTime();
-        int d = current.date().dayOfWeek();
-        int h = current.time().hour();
-        int m = current.time().minute() < 30 ? 0 : 30;
-
-        QString key = QString::number(d-1, 10) + ":" + QString::number(h, 10)+ ":" + QString::number(m, 10);
-
-        QMap<QString, QString> map;
-        for (int i = 0; i < mFilteredSchedule.count(); i++){
-            map.insert(mFilteredSchedule.at(i), mFilteredSchedule.at(i));
-        }
-
-        if (map[key] == key){
-            statSleep = true;
-        }else {
-            statSleep = false;
-        }
-
-        if (statSleep != statSleepPrevious){
-            statSleepPrevious = statSleep;
-            if (statSleep){
-                if(statusHistoryEnabled){
-                    ProcCloseOffClick();
-                }
-                QString soundName = "snoring.wav";
-                PlaySound(soundName);
-                ProcClickForSleep();
-            }else{
-                QString soundName = "Woohoo.wav";
-                PlaySound(soundName);
-                catIndx = -1;
-                processClick(0);
-            }
-        }
-    }else{
-        if (statSleepPrevious == true){
-            statSleep = false;
-            statSleepPrevious = false;
-
-            QString soundName = "Woohoo.wav";
-            PlaySound(soundName);
-            catIndx = -1;
-            processClick(0);
-        }
-    }
-}
 
 
 
@@ -129,7 +74,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-
 bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 {
     if (!checkProc){
@@ -190,7 +134,6 @@ void MainWindow::FadeinWidget(QWidget *w){
     a->setEasingCurve(QEasingCurve::InBack);
     a->start(QPropertyAnimation::DeleteWhenStopped);
 }
-// w is your widget
 
 void MainWindow::updateTimerScreenShot(){
     FadeOutWidget(horizontalMenu);
@@ -240,7 +183,7 @@ void MainWindow::CreateInitElement(){
 
 
     QString bgImage = "";     //"data:image/jpg;base64,"+iconBase64;
-    QString bgvideo = "https://player.vimeo.com/video/273431568"; //
+    QString bgvideo = "https://www.youtube.com/embed/FjU_x1106pg"; //
 
 
     QString videoSound = "true";
@@ -294,7 +237,19 @@ void MainWindow::CreateInitElement(){
     CreateAdminWidget();
     // headerImageInfoCategory
     CreateHeaderImageInfoCategory(xmlData);
+
+    ProcShowCloseButton(mSettings.showCloseButton);
+    adminWidget->show();
+    procupdateHorizMenu();
+    horizontalMenu->setVisible(true);
+    headerImageInfo->show();
+//    ZackClock();
+    checkProc = true;
+
+
     scroll->setFocus();
+
+
 
 }
 
@@ -503,36 +458,13 @@ void MainWindow::createView(){
     view->settings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
 
 }
-void MainWindow::createViewInit(){
-    viewInit = new QWebEngineView(this);
-    connect(viewInit, SIGNAL(loadFinished(bool)),this, SLOT(procLoadInitVideoFinished(bool)));
 
-    viewInit->setGeometry(0,0,width,height);
-    QString pathTmp = ("file:///" +QDir::currentPath() +"/"+ "intro.html");
-
-    viewInit->load(QUrl(pathTmp));
-    viewInit->hide();
-}
-void MainWindow::TimerFinish(){
-    viewInit->hide();
-    connect(view, SIGNAL(loadStarted()),this, SLOT(procStartedUrlFinished()));
-
-//    delete viewInit;
-    ProcShowCloseButton(mSettings.showCloseButton);
-    adminWidget->show();
-    procupdateHorizMenu();
-    horizontalMenu->setVisible(true);
-    headerImageInfo->show();
-    ZackClock();
-    delete t;
-    checkProc = true;
-}
 
 void MainWindow::procLoadInitVideoFinished(bool s){
     // start Init video
-    t5 = new QTimer;
-    connect(t5, SIGNAL(timeout()), this, SLOT(TimerFinish5()));
-    t5->start(0);
+//    t5 = new QTimer;
+//    connect(t5, SIGNAL(timeout()), this, SLOT(TimerFinish5()));
+//    t5->start(0);
 
     // start to show main Video
     t = new QTimer;
@@ -545,11 +477,7 @@ void MainWindow::procLoadInitVideoFinished(bool s){
 
 }
 
-void MainWindow::TimerFinish2(){
 
-    processClickInit(0);
-    delete t2;
-}
 void MainWindow::processClickInit(int i){
     statusHistoryEnabled = false;
     catIndx = i;
@@ -635,23 +563,16 @@ void MainWindow::processClickInit(int i){
     view->setHtml(htmlCont);
     scroll->setFocus();
     repaint();
-
 }
-void MainWindow::TimerFinish5(){
 
-   viewInit->show();
-    delete t5;
-}
 void MainWindow::ProcUpClick(){
     scroll->verticalScrollBar()->setValue(scroll->verticalScrollBar()->value()-100);
 }
+
 void MainWindow::ProcDownClick(){
     scroll->verticalScrollBar()->setValue(scroll->verticalScrollBar()->value()+100);
 }
-void MainWindow::procStartedUrlFinished(){
-//    loader->show();
-//    loader->setValue(0);
-}
+
 void MainWindow::procLoadUrlFinished(bool s){
 //    loader->setValue(100);
 //    loader->hide();
@@ -1050,7 +971,6 @@ void MainWindow::ProcForwardViewClick(){
 }
 void MainWindow::initVideo(){
     createView();
-    createViewInit();
 }
 void MainWindow::keyReleaseEvent(QKeyEvent *event){
     if (!mSettings.exitKeyboardShortcut){
@@ -1085,11 +1005,10 @@ MainWindow::~MainWindow()
     SaveFilteredDataSchedule();
     writeSettings();
     delete view;
-    delete viewInit;
+//    delete viewInit;
     delete centralMenu;
     delete horizontalMenu;
     delete parser;
-    delete viewInit;
     delete ui;
 }
 void MainWindow::processClick(int i){
@@ -1179,6 +1098,7 @@ void MainWindow::processClick(int i){
 
 
     // background video
+    xmlData.categories.at(i)->bgvideo = "https://www.youtube.com/watch?v=eSRj847AY8U";
     QString bgvideo = ParseTransform(xmlData.categories.at(i)->bgvideo);
     QString videoSound = xmlData.categories.at(i)->videosound;
     QString bgvideoSound;
